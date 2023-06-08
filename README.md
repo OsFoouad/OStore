@@ -1,16 +1,9 @@
-# o_store
+O Store ...
+it's a small e-commerce app try to make like amazon or aloExpress :)
 
-A new Flutter project.
+in this project i have used MVP Archtecutral pattern 
+as we Have model for data and a controller which has the logic of my project
+then have some screens to  interact with user.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Networking in this app had been done with the awesome "Dio" 
+project still need some works like payment mehtods.
