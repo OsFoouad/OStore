@@ -20,54 +20,57 @@ class SingleItemScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(8, 0, 0, 0),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            SizedBox(height: 15),
-            FutureBuilder<Product>(
-              future: DioConnection.getProductsById(productId),
-              builder: (c, snapshot) {
-                return snapshot.hasData
-                    ? SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              FutureBuilder<Product>(
+                future: DioConnection.getProductsById(productId),
+                builder: (c, snapshot) {
+                  return snapshot.hasData
+                      ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("you selected the following product:"),
+                            Text("you selected:"),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
                               snapshot.data!.title!,
                               style: TextStyle(
-                                fontSize: 20,
-                              ),
+                                  fontSize: 20, fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  image: DecorationImage(
-                                      image:
-                                          NetworkImage(snapshot.data!.image!),
-                                      fit: BoxFit.contain)),
+                            SizedBox(
+                              height: 200,
+                              width: 200,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                    border: Border.all(),
+                                    image: DecorationImage(
+                                        image:
+                                            NetworkImage(snapshot.data!.image!),
+                                        fit: BoxFit.contain)),
+                              ),
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: 10),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  height: 15,
+                                  height: 10,
                                 ),
                                 Text(
                                   snapshot.data!.description!,
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 15),
                                   textAlign: TextAlign.center,
                                 ),
                                 SizedBox(
@@ -79,7 +82,9 @@ class SingleItemScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       "Rating : ${snapshot.data!.rating!.rate!.toString()}",
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     Text(
                                       '|',
@@ -87,7 +92,9 @@ class SingleItemScreen extends StatelessWidget {
                                     ),
                                     Text(
                                       "remain : ${snapshot.data!.rating!.count} ",
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600),
                                     )
                                   ],
                                 ),
@@ -100,7 +107,7 @@ class SingleItemScreen extends StatelessWidget {
                                     "Price : ${snapshot.data!.price!} \$",
                                     style: TextStyle(
                                         color: Color.fromARGB(255, 166, 255, 0),
-                                        fontSize: 20),
+                                        fontSize: 30),
                                   ),
                                 ),
                                 SizedBox(height: 40),
@@ -120,14 +127,14 @@ class SingleItemScreen extends StatelessWidget {
                               ],
                             )
                           ],
-                        ),
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(),
-                      );
-              },
-            ),
-          ],
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
