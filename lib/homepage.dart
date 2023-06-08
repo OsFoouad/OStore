@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:o_store/Controller/api_controller.dart';
 import 'package:o_store/Model/product.dart';
 import 'package:o_store/cat_items.dart';
+import 'package:o_store/single_item_screen.dart';
 import 'navigation_bar.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -51,6 +52,7 @@ not more  than thant <3
 // end of App Bar
 
 // UI Body ...
+/* the body of the project - the screen content. */
       body: Column(
         children: [
           SizedBox(height: 10),
@@ -90,63 +92,71 @@ not more  than thant <3
               return snapshot.hasData
                   ? Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: GridView.builder(
-                          physics: BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 20,
-                            crossAxisSpacing: 20,
-                          ),
-                          itemBuilder: (c, index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                snapshot.data![index].image!),
-                                            fit: BoxFit.contain)),
-                                  ),
+                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: GridView.builder(
+                            physics: BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 20,
+                              crossAxisSpacing: 20,
+                            ),
+                            itemBuilder: (c, index) {
+                              return InkWell(
+                                onTap: (() {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => SingleItemScreen(
+                                            productId:
+                                                snapshot.data![index].id!,
+                                          )));
+                                }),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(snapshot
+                                                    .data![index].image!),
+                                                fit: BoxFit.contain)),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15),
+                                    Text(
+                                      snapshot.data![index].title!,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(height: 15),
+                                    Text(
+                                      snapshot.data![index].price.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 129, 101, 101),
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(height: 15),
-                                Text(
-                                  snapshot.data![index].title!,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(height: 15),
-                                Text(
-                                  snapshot.data![index].price.toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 129, 101, 101),
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    )
+                              );
+                            },
+                          )))
                   : Expanded(
                       child: Center(child: CircularProgressIndicator()),
                     );
             },
           ),
+
+          /// end of gridview builder
         ],
       ),
-
-      /* the body of the project - the screen content. */
 
 /* 
 Navigation Bar 

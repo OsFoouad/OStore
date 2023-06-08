@@ -35,10 +35,7 @@ class Product {
     data['category'] = category;
     data['image'] = image;
     if (rating != null) {
-      if (rating != null) {
-        data['rating'] = rating!.toJson();
-      }
-      //data['rating'] = rating;
+      data['rating'] = rating!.toJson();
     }
     return data;
   }
